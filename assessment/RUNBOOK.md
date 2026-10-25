@@ -59,6 +59,7 @@ On this Windows workstation run Docker commands via the WSL prefix above. Browse
 - A queued report has a two-minute lease. Lost jobs become retryable through an explicit refresh. A process crash between DB commit and Redis enqueue therefore cannot cause a permanent spinner. This bounded recovery is the chosen trade-off instead of introducing a transactional outbox.
 - The last successful snapshot survives refresh or queue failure. The server blocks comparison exports until the digest matches current source data.
 - A human override invalidates comparison snapshots while holding the same portfolio row lock used by generation. Vacancy/skill changes are detected by content digest on the next read.
+- Bump `FitGap::Snapshot::VERSION` when comparison semantics change so cached results require refresh.
 - Duplicate job delivery uses the report's generation token and portfolio lock; obsolete jobs cannot replace a newer request.
 - Deploy the additive migration before new code. Drain old two-argument FitGapGeneratorWorker jobs before deploying the new three-argument worker contract. Rollback removes lifecycle metadata but preserves existing reports and ratings. An application rollback restores old narrative behavior and lacks the new security checks, so it is an operational fallback, not a safe long-term state.
 - This is a focused review-workflow hardening, not a whole-product security or legal certification. Other interview/WebSocket paths, retention/deletion workflows, and external provider privacy agreements need a separate review.

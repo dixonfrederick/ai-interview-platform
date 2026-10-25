@@ -57,6 +57,9 @@ module Api
           return json_error("Portfolio is not ready for export (status: #{@portfolio.generation_status})", :unprocessable_entity)
         end
 
+        if params[:vacancy_id].present? && !valid_record_id?(params[:vacancy_id])
+          return json_error('vacancy_id must be a positive integer', :unprocessable_entity)
+        end
         vacancy = params[:vacancy_id].present? ? Vacancy.where(tenant_id: current_tenant_id).find(params[:vacancy_id]) : nil
         if vacancy
           report = FitGapReport.find_by(portfolio: @portfolio, vacancy: vacancy)
@@ -115,13 +118,21 @@ module Api
 
       def request_fitgap(force:)
         portfolio = owned_portfolios.find(params[:id])
+        if params.key?(:fitgap) && !params[:fitgap].nil? && !params[:fitgap].is_a?(ActionController::Parameters)
+          return json_error('fitgap must be an object', :unprocessable_entity)
+        end
         vacancy_id = params.dig(:fitgap, :vacancy_id) || params[:vacancy_id]
         return json_error('vacancy_id is required', :unprocessable_entity) if vacancy_id.blank?
+        return json_error('vacancy_id must be a positive integer', :unprocessable_entity) unless valid_record_id?(vacancy_id)
         vacancy = Vacancy.where(tenant_id: current_tenant_id).find(vacancy_id)
         return json_error('Portfolio is not ready', :unprocessable_entity) unless portfolio.complete?
         report = FitGap::RequestGeneration.call(portfolio: portfolio, vacancy: vacancy, force: force)
         status = %w[pending generating].include?(report.review_status) ? :accepted : :ok
         json_response({ report: fit_gap_json(report) }, status)
+      end
+
+      def valid_record_id?(value)
+        (value.is_a?(Integer) || value.is_a?(String)) && value.to_s.match?(/\A[1-9]\d{0,18}\z/) && value.to_i <= 9_223_372_036_854_775_807
       end
 
       def set_session

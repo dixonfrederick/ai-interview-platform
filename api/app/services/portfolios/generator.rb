@@ -172,6 +172,8 @@ module Portfolios
           raise ArgumentError, 'Invalid skill label' unless label.is_a?(String) && label.strip.present?
           evidence = skill_data.fetch('evidence', [])
           raise ArgumentError, 'Invalid evidence' unless evidence.is_a?(Array) && evidence.all? { |quote| quote.is_a?(String) }
+          summary = skill_data['competency_summary']
+          raise ArgumentError, 'Invalid competency summary' unless summary.is_a?(String) && summary.strip.present?
           discovered = collection == 'discovered_skills'
           skill_id = discovered ? nil : skill_data['skill_id']
           raise ArgumentError, 'Invalid skill identity' unless skill_id.nil? || skill_id.is_a?(String)
@@ -184,7 +186,7 @@ module Portfolios
           raise ArgumentError, 'Ambiguous existing skill identity' if matches.length > 1
           skill = matches.first || portfolio.portfolio_skills.build
           skill.update!(skill_id: skill_id, skill_label: label.strip, is_discovered: discovered, ai_level: level,
-            ai_confidence: skill_data['confidence'], evidence: evidence.first(3), competency_summary: skill_data['competency_summary'])
+            ai_confidence: skill_data['confidence'], evidence: evidence.first(3), competency_summary: summary)
           retained << skill.id
         end
       end

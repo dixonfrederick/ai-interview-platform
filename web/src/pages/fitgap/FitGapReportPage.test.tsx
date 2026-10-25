@@ -86,6 +86,8 @@ describe('fit/gap review lifecycle', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Download PDF' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('export could not be downloaded');
     expect(screen.getByRole('button', { name: 'Download JSON' })).toBeDisabled();
+    await userEvent.click(screen.getByRole('button', { name: 'Check status' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Download JSON' })).toBeEnabled());
   });
 
   it('does not create a report when the portfolio is still pending', async () => {

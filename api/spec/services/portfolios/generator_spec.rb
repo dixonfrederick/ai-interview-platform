@@ -24,6 +24,12 @@ RSpec.describe Portfolios::Generator do
     expect(portfolio).to be_failed
   end
 
+  it 'rejects a non-text summary rather than displaying an object as evidence' do
+    original = add_rating(portfolio)
+    expect { generate('configured_skills' => [valid_skill.merge('competency_summary' => {})]) }.to raise_error(ArgumentError)
+    expect(original.reload.competency_summary).to eq('Synthetic evidence for a local review.')
+  end
+
   it 'rolls back a partially valid response' do
     original = add_rating(portfolio)
     expect { generate('configured_skills' => [valid_skill, valid_skill.merge('skill_id' => 'another', 'confidence' => 'invented')]) }.to raise_error(ActiveRecord::RecordInvalid)

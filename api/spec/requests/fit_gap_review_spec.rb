@@ -24,6 +24,18 @@ RSpec.describe 'Fit/gap review access and lifecycle', type: :request do
     expect(FitGapGeneratorWorker.jobs).to be_empty
   end
 
+  it 'rejects malformed identifiers and request objects instead of coercing or crashing' do
+    [0, -1, 1.5, true, {}, [vacancy.id], '1junk', 9_223_372_036_854_775_808].each do |value|
+      post path, params: { vacancy_id: value }, headers: headers, as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+    ['invalid', [], false].each do |value|
+      post path, params: { fitgap: value, vacancy_id: vacancy.id }, headers: headers, as: :json
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+    expect(FitGapGeneratorWorker.jobs).to be_empty
+  end
+
   it 'rejects candidate roles' do
     post path, params: { vacancy_id: vacancy.id }, headers: assessor_headers(role: 'student')
     expect(response).to have_http_status(:forbidden)
