@@ -18,7 +18,8 @@ RSpec.describe 'Fit/gap review access and lifecycle', type: :request do
   end
 
   it 'requires authentication' do
-    post path, params: { vacancy_id: vacancy.id }, headers: { 'X-Tenant-Scheme' => headers && 'spec-101' }
+    assessor_headers
+    post path, params: { vacancy_id: vacancy.id }, headers: { 'X-Tenant-Scheme' => 'spec-101' }
     expect(response).to have_http_status(:unauthorized)
     expect(FitGapGeneratorWorker.jobs).to be_empty
   end
@@ -46,6 +47,8 @@ RSpec.describe 'Fit/gap review access and lifecycle', type: :request do
     post path, params: { vacancy_id: foreign_vacancy.id }, headers: headers
     expect(response).to have_http_status(:not_found)
     expect(FitGapGeneratorWorker.jobs).to be_empty
+    get "/api/v1/portfolios/#{portfolio.id}/export", params: { format: 'pdf', vacancy_id: foreign_vacancy.id }, headers: headers
+    expect(response).to have_http_status(:not_found)
   end
 
   it 'keeps the successful report on an override and marks it stale' do
@@ -70,5 +73,19 @@ RSpec.describe 'Fit/gap review access and lifecycle', type: :request do
     token = JsonWebToken.encode(user_id: 1, role: 'admin', scheme: 'missing-organization')
     post path, params: { vacancy_id: vacancy.id }, headers: { 'Authorization' => "Bearer #{token}" }
     expect(response).to have_http_status(:forbidden)
+  end
+
+  it 'exports the same required levels and provenance in JSON and a valid PDF' do
+    skill = portfolio.portfolio_skills.first
+    skill.create_assessor_override!(ai_level: 3, override_level: 4, overridden_by: 1, assessor_notes: 'Synthetic review')
+    FitGap::Engine.new(portfolio: portfolio, vacancy: vacancy).call
+    get "/api/v1/portfolios/#{portfolio.id}/export", params: { format: 'json', vacancy_id: vacancy.id }, headers: headers
+    expect(response).to have_http_status(:ok)
+    exported = JSON.parse(response.body)
+    expect(exported.dig('fit_gap_report', 'skill_comparisons', 0)).to include('expected_level' => 3, 'rating_source' => 'assessor')
+    get "/api/v1/portfolios/#{portfolio.id}/export", params: { format: 'pdf', vacancy_id: vacancy.id }, headers: headers
+    expect(response).to have_http_status(:ok)
+    expect(response.media_type).to eq('application/pdf')
+    expect(response.body).to start_with('%PDF-')
   end
 end

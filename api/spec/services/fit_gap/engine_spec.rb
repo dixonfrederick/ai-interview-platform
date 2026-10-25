@@ -58,4 +58,25 @@ RSpec.describe FitGap::Engine do
     vacancy.update!(tenant_id: 202)
     expect { comparisons }.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  (1..5).to_a.product((1..5).to_a).each do |observed, required|
+    it "compares observed L#{observed} against required L#{required} without off-by-one errors" do
+      add_requirement(vacancy, level: required)
+      add_rating(portfolio, level: observed)
+      expected = observed == required ? 'match' : observed > required ? 'exceed' : 'gap'
+      expect(comparisons.first).to include('result' => expected, 'delta' => observed - required)
+    end
+  end
+
+  it 'treats an ambiguous duplicate rating as unassessed' do
+    add_requirement(vacancy)
+    2.times { add_rating(portfolio) }
+    expect(comparisons.first['result']).to eq('not_assessed')
+  end
+
+  it 'normalizes canonical ID case without matching unrelated IDs' do
+    add_requirement(vacancy, skill_id: 'SK-ENG-004')
+    add_rating(portfolio, skill_id: 'sk-eng-004')
+    expect(comparisons.first['result']).to eq('match')
+  end
 end
