@@ -21,7 +21,7 @@ The most significant product trade-off is replacing unsupported culture/hiring n
 | How do canonical and custom skills match? | `FitGap::Snapshot#rating_for` and duplicate-label/ambiguous-rating specs |
 | What changes after a human revision? | `PortfolioSkillsController#override`, `AssessorOverride`, snapshot provenance and digest |
 | How are duplicate jobs handled? | `FitGap::RequestGeneration` and `FitGapGeneratorWorker` |
-| What if the process dies after DB commit but before Redis enqueue? | The two-minute lease, explicit retry, and the deferred outbox decision |
+| What if the process dies after DB commit but before Redis enqueue? | Two-minute timeout detection, explicit reviewer retry, and the deferred outbox decision; no automatic re-enqueue |
 | What if a provider returns two valid skills and one invalid skill? | The portfolio lock/transaction and partial-write rollback test |
 | How do you deny another tenant's report/export/override? | Owned-portfolio/session joins and negative request specs |
 | How do you know a report is stale? | Snapshot digest, version constant, `FitGapReport#review_status`, export guard |
@@ -43,7 +43,7 @@ The most significant product trade-off is replacing unsupported culture/hiring n
 
 Run the backend suite, frontend tests/build, and browser checks from RUNBOOK.md. Open the scratch branch commits `1ca12dc` and `1426ef5`. Explain why addition instead of subtraction caused 28 of 35 comparison examples to fail. Show that the feature branch contains the correct subtraction and the final suite passes.
 
-For AI verification, explain how the initially selected test-runner version was audited, why it was unsafe, how compatible patched versions were checked, and what development-tool advisories remain. Be prepared to explain any generated code without relying on AI during the interview.
+For AI verification, explain the generated evidence-selector correction and the limits of its Enter-key assertion. Explain the dependency review and final versions, but do not assert exact historical advisory details: the initial full audit output was not retained. Be prepared to explain generated code without relying on AI during the interview.
 
 ## Before the portal upload
 

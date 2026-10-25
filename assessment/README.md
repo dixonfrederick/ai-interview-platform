@@ -8,7 +8,9 @@
 - [Discovery, acceptance criteria, and alternatives](01-discovery-and-plan.md)
 - [Product context and primary sources](02-product-context.md)
 - [AI verification and seeded-fault proof](AI-VERIFICATION.md)
-- [Design delivery gate](DESIGN-QA.md)
+- [Scoped application design record](DESIGN-QA.md)
+- [Revised report delivery gate](REPORT-QA.md)
+- [Report audit and corrections](../anti-slop/follow-up-001-2026-10-26.md)
 - [Technical-defense preparation](DEFENSE.md)
 
 The selected change is the portfolio-to-vacancy review workflow, across Rails and React. All demonstrated candidate data is synthetic. Failure/long-text/empty UI response simulations are labeled. The video includes real browser footage and explanatory text, with no spoken narration. The original live microphone/Gemini interview was not verified against the live service; its model response/failure handling is tested with controlled clients.
@@ -24,3 +26,5 @@ python assessment/build_report.py --output assessment/submission.pdf
 The editable video project is in `demo/`. Its assets are real screenshots and the recorded workflow; `npm ci` then `npm run dev -- --no-open` opens the preview. Render the `ReviewWalkthrough` composition for a 210-second MP4.
 
 The candidate must review and understand the implementation, verify the exact dashboard deadline, and upload the single PDF to the hiring portal. No portal submission or live technical defense has been performed by the assistant.
+
+Report revised 26 October 2026: 12 pages, consistent Title Case, enlarged evidence crops, and a footer without the repeated synthetic-data phrase. Fixture and simulation disclosures remain in the body/captions. Application/test evidence is pinned to fd15a9d and exact successful CI run 40207781087. This document revision adds no application coverage; full keyboard traversal and the live Gemini interview remain unverified.

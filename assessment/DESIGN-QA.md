@@ -16,10 +16,10 @@ Direction: extend the existing Rakamin light teal assessor workspace. ENERGY 1 /
 - R-26 PASS: evidence disclosure, filter, refresh, retry, Check status, downloads, and navigation have real behavior covered by tests or browser use.
 - R-27 PASS: loading, empty, failed, partial, stale, refreshing, download-error, and long-text states are implemented and exercised.
 - R-28 PASS: no filler FAQ introduced.
-- R-32 PASS: browser Enter-key test opens evidence; new links/controls have visible focus styling or native focus behavior.
+- R-32 RECORDED SCOPE: a programmatically focused evidence control opens with Enter; source has native/custom focus styles. Complete Tab/Shift+Tab traversal of all controls was not recorded, so it is not certified here.
 - R-33 PASS: UI is authored directly in React source; tests do not serve as production DOM/style patches.
 - R-34 PASS: no theme toggle introduced; the existing light workspace remains the direction for this change.
-- R-35 PASS: TypeScript/Vite build, frontend tests, real browser flow, and responsive checks completed successfully.
+- R-35 RECORDED SCOPE: TypeScript/Vite build, listed automated controls, recorded browser flow, and responsive checks succeeded. There is no complete element-by-element click-through with console outcomes; the revised report makes no universal control-verification claim.
 - R-36 PASS: tenant checks and test results are stated at their actual scope; no production, legal, performance, or fairness certification is claimed.
 - R-37 PASS: direction and dials were recorded before UI implementation; the user authorized applying the filter during the build.
 - R-38 PASS: fixtures and simulated failure screenshots are explicitly labeled; no realistic fabricated product claims.
@@ -54,7 +54,7 @@ Direction: extend the existing Rakamin light teal assessor workspace. ENERGY 1 /
 - C-1 PASS: layout, type, color, borders, icons, and motion have written task-specific reasons above.
 - C-2 PASS: unique new interactions have actual effects; Check status recovery is asserted in the frontend suite.
 - C-3 PASS: all sections support inspection, follow-up, or the limits of the comparison; no marketing filler.
-- C-4 PASS: tested desktop, 375px, 320px long-text, keyboard, and processing/error states remain usable.
+- C-4 RECORDED SCOPE: desktop, 375px, 320px long-text, one Enter-key disclosure, and selected processing/error states were exercised. This does not establish all-control keyboard usability.
 - C-5 PASS: test counts and fixture outcomes are real; unmeasured business effects are explicitly excluded.
 - R-05 PASS: this is an assessor review workflow, without a generic landing-page hero/feature/testimonial template.
 - R-11 PASS: rectangular tables/panels and modest corner radii fit the existing system; controls are not uniformly pills.
@@ -67,3 +67,7 @@ Direction: extend the existing Rakamin light teal assessor workspace. ENERGY 1 /
 - R-31 PASS: major visual decisions connect directly to readable evidence, safe interpretation, and recoverable actions.
 
 Evidence: `evidence/browser-tests.txt`, `evidence/frontend-tests.txt`, `evidence/frontend-build.txt`, real/explicitly simulated screenshots, and `web/e2e/review.spec.ts`. The report and captioned video were separately rendered and visually inspected for clipping, legibility, and honest labels.
+
+## Report Revision, 26 October 2026
+
+The report uses a separate document gate in REPORT-QA.md. The scoped entries above replace the earlier universal accessibility/click-through implication; the prior Git history is preserved. No new application checks were run or silently added to the recorded counts during this document revision.
