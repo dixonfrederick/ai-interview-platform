@@ -20,6 +20,8 @@ npm run dev -- --host 127.0.0.1 --port 5174
 
 Keep a WSL session open while using Docker on this workstation. If WSL is shut down, restart the services with Compose. The development API command removes its stale server PID file before booting.
 
+Compose uses one development Puma process and a polling file watcher. Inotify events on Windows bind mounts did not reliably reload both original Puma workers, which left an old PDF exporter in memory during local testing. Polling avoids stale code; restart the worker after changing job or service code because Sidekiq does not reload it automatically.
+
 ## Linux / macOS
 
 ```sh

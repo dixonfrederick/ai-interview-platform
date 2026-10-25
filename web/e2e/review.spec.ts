@@ -22,6 +22,7 @@ test('real API: evidence, filter, refresh, JSON and PDF downloads', async ({ pag
   await expect(apiRow).toContainText('AI: L2');
   await apiRow.locator('summary').click();
   await expect(apiRow.getByText(/Synthetic human review/)).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: path.join(evidence, 'after-desktop.png'), fullPage: true });
   await page.getByLabel('Needs follow-up only').check();
   await expect(page.getByRole('row').filter({ hasText: 'Database Design & SQL' })).toHaveCount(0);
