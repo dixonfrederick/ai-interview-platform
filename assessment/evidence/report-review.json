@@ -1,7 +1,7 @@
 {
-  "report_sha256": "fa0fae8f3bbcec11862bd877120079a8155378d2e11844b8486470ee009bf7bb",
+  "report_sha256": "aacb151578ea37e42051c72ed01911177c967761dd40bd953f2baa47977a9469",
   "pages": 12,
-  "bytes": 414248,
+  "bytes": 414208,
   "headings_checked": 59,
   "title_case": "pass",
   "footer": "pass",
@@ -13,7 +13,7 @@
     {
       "page": 1,
       "body_bottom_pt": 772.17,
-      "words": 263
+      "words": 255
     },
     {
       "page": 2,
@@ -77,5 +77,6 @@
   "all_text_margin_checks": "pass",
   "mobile_column_overflow_corrected": true,
   "defense_guide_snapshot": "2e3c81b15b29b31578c0f8e1d641e3c9a33c873c",
-  "final_renders_match_visually_inspected_pages": true
+  "final_renders_match_visually_inspected_pages": true,
+  "cover_date": "25 October 2026"
 }

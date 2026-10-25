@@ -111,7 +111,7 @@ def source_image(label, filename):
 
 heading('Fullstack Product Engineer Case Study', 'Evidence-Based Fit/Gap Review')
 add('Dixon Frederick', 'h2')
-add('Prepared 25 October 2026; revised 26 October 2026 · Asia/Jakarta (WIB)', 'small')
+add('25 October 2026', 'small')
 add('A missing rating is not a skill gap. This change makes the role benchmark, interview evidence, and AI or human rating source visible before a reviewer acts.', 'lead')
 table(['Submission Artifact','Access'], [
  ['Open Upstream Pull Request',link('PR #192: Evidence-Based Fit/Gap Review',PR)],
