@@ -17,7 +17,7 @@ module FitGap
           rating = snapshot.rating_for(requirement)
           level = rating&.fetch(:candidate_level)
           expected = Snapshot.level(requirement[:expected_level])
-          delta = level && expected ? level + expected : nil
+          delta = level && expected ? level - expected : nil
           result = if delta.nil? then 'not_assessed'
                    elsif delta.zero? then 'match'
                    elsif delta.positive? then 'exceed'
