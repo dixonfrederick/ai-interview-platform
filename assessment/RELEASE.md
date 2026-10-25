@@ -9,4 +9,4 @@ Validation: 61 backend examples, 11 frontend tests, 4 browser regression tests, 
 
 PDF revision, 26 October 2026: 12 pages with readable evidence crops, Title Case headings, no repeated synthetic-data footer, scoped interaction claims, a concrete public-service observation, closer queue-recovery trade-offs, and exact source/CI evidence. The original dependency-audit output was not retained, so exact historical severity attribution has been removed. No new application verification is implied.
 
-Revised PDF SHA-256: `aacb151578ea37e42051c72ed01911177c967761dd40bd953f2baa47977a9469`.
+Revised PDF SHA-256: `740210b13f25038daf27811211b4dc8ec49a35ec75dd92582571a583177c4c50`.

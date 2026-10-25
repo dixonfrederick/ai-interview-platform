@@ -289,8 +289,8 @@ for item in limits:
     add('• '+item,'small')
 add('Release and Rollback','h2')
 add('Apply the additive migration before the new code. Drain legacy two-argument fit/gap jobs before switching to the three-argument worker. Rollback preserves comparison/portfolio data but removes lifecycle metadata. The local-only Compose runtime contains documented synthetic credentials; production configuration is outside this change.','small')
-add('Reproducibility and Submission Status','h2')
-add(source_link('Setup, Checks, and Rollback Runbook','assessment/RUNBOOK.md')+'<br/>'+link('Separate Technical Defense Preparation',FORK+'/blob/2e3c81b15b29b31578c0f8e1d641e3c9a33c873c/assessment/DEFENSE.md')+'<br/>The hiring dashboard supplies the exact deadline. The PDF has not been uploaded to that portal; the reported four-day window does not establish a new due date.','small')
+add('Runbook and Defense Preparation','h2')
+add(source_link('Setup, Checks, and Rollback Runbook','assessment/RUNBOOK.md')+'<br/>'+link('Separate Technical Defense Preparation',FORK+'/blob/2e3c81b15b29b31578c0f8e1d641e3c9a33c873c/assessment/DEFENSE.md'),'small')
 
 def chrome(canvas,doc):
     canvas.saveState()
